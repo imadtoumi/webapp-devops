@@ -35,7 +35,8 @@ cd /var/www/html
 touch index.html
 nano index.html
 ```
-  . Edit index.html and save it
+
+   . Edit index.html and save it
 ```python
 <h1>Welcome to devops project</h1>
 ```  
