@@ -98,7 +98,7 @@ docker build -t flask-docker .
 docker run -d -p 5000:5000 flask-docker
 ```
 - After runing "docker ps" you will se the conatiners running and you will the container we did run
-![flask](https://github.com/imadtoumi/webapp-devops/assets/41326066/6dc2abd1-a9c2-4147-81ad-aea2a9da7386)
+![container](https://github.com/imadtoumi/webapp-devops/assets/41326066/da73384e-c597-4d5b-b22e-3338179dfc22)
 
 1- -d is for detach so you can be able to interact with the server after runing the container </br>
 2- -p is for port mapping, without this accessing the app from the browser won't work and you will be faced with " Web site unrechabale "
