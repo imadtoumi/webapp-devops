@@ -67,3 +67,6 @@ Git is set up as well as github and first push was performed, repo was created f
 - **Testing Strategies**: Discuss testing strategies for the web app and how to implement automated testing.
 - **Monitoring**: Explore options for monitoring the deployed web app's performance and availability.
 - **CI/CD Pipelines**: Implement CI/CD pipelines for automated testing and deployment.
+
+## Contribution
+Contributions to this project are welcome! Feel free to submit issues, feature requests, or pull requests. For support or collaboration, reach out via email at \imadtoumi8@gmail.com or via discord imad5208.
