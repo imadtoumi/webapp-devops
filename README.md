@@ -44,10 +44,10 @@ nano index.html
 ```python
 systemctl restart nginx
 ```
-Now access the nginx server from the browser (type server's ip address and port or type local host if runing it locally)
+####Now access the nginx server from the browser (type server's ip address and port or type local host if runing it locally)
   ![nginx](https://github.com/imadtoumi/webapp-devops/assets/41326066/499345ad-6d8d-4615-a294-c5a0dadcfbd2)
 </br>
-Yes this is how the page will look like after the setup above, pretty boring isn't it? It'll get there little by little :)
+####Yes this is how the page will look like after the setup above, pretty boring isn't it? It'll get there little by little :)
 
 . Now let's use git to save the progress and save the files in github
 ```python
