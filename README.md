@@ -61,3 +61,9 @@ git push --set-upstream origin main
 ```
 
 Git is set up as well as github and first push was performed, repo was created first in github before it was declared as the origin remote repo
+
+- **Configuration Tips**: Provide tips for optimizing nginx configuration for performance and security.
+- **Containarization**: Containerize the web app using technologies like Docker
+- **Testing Strategies**: Discuss testing strategies for the web app and how to implement automated testing.
+- **Monitoring**: Explore options for monitoring the deployed web app's performance and availability.
+- **CI/CD Pipelines**: Implement CI/CD pipelines for automated testing and deployment.
