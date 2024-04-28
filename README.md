@@ -63,10 +63,50 @@ git push --set-upstream origin main
 Git is set up as well as github and first push was performed, repo was created first in github before it was declared as the origin remote repo
 
 - **Configuration Tips**: Provide tips for optimizing nginx configuration for performance and security.
-- **Containarization**: Containerize the web app using technologies like Docker
+- **Containerization**: Containerize the web app using technologies like Docker
 - **Testing Strategies**: Discuss testing strategies for the web app and how to implement automated testing.
 - **Monitoring**: Explore options for monitoring the deployed web app's performance and availability.
 - **CI/CD Pipelines**: Implement CI/CD pipelines for automated testing and deployment.
 
+# Containerizing Flask App
+### after testing and familirizing with the Raspberry Pi now i will containerize a flask app i have created to test with (the files used are all in the repo).
+#### first we have to install Docker
+```python
+sudo apt install docker.io
+```
+#### Create our work directory and all the files
+```python
+mkdir flask-app
+cd flask-app
+mkdir templates
+touch Dockerfile app.py index.html requirement.txt
+mv index.html templates 
+```
+
+#### Edit the files with the content of the files in th repo
+#### Let's build our docker image
+```python
+docker build -t flask-docker .
+```
+- After running "docker images" you will see the image we have built </br> 
+![flask](https://github.com/imadtoumi/webapp-devops/assets/41326066/39e8b1d5-5180-4dbb-8120-c220961b3e55)
+</br>
+- Make sure you are in the directory where you have your files and the <b>Dockerfile</b>
+
+#### Let's run the docker container usiong the image we built
+```python
+docker run -d -p 5000:5000 flask-docker
+```
+- After runing "docker ps" you will se the conatiners running and you will the container we did run
+![flask](https://github.com/imadtoumi/webapp-devops/assets/41326066/6dc2abd1-a9c2-4147-81ad-aea2a9da7386)
+
+1- -d is for detach so you can be able to interact with the server after runing the container
+2- -p is for port mapping, without this accessing the app from the browser won't work and you will be faced with " Web site unrechabale "
+
+#### Now let's access our web app from the browser
+![webapp](https://github.com/imadtoumi/webapp-devops/assets/41326066/8c069f15-b18c-4196-8f2f-bd3c3af2ea54)
+
+- Dont forget to initilize git repo in the directory you are working and follow the commands we did above (Git setup part)
+  
 ## Contribution
 Contributions to this project are welcome! Feel free to submit issues, feature requests, or pull requests. For support or collaboration, reach out via email at \imadtoumi8@gmail.com or via discord imad5208.
