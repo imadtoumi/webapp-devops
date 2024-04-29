@@ -22,6 +22,10 @@
         <center><h1 class="mt-5">Task Manager</h1></center>
         <form class="task-form" action="{{ url_for('add_task') }}" method="post">
             <div class="form-group">
+                <label for="user">User:</label>
+                <input type="text" class="form-control" id="user" name="user" placeholder="Enter User Name">
+            </div>
+            <div class="form-group">
                 <label for="name">Task:</label>
                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter task">
             </div>
@@ -39,6 +43,7 @@
             {% for task_name, task_info in tasks.items() %}
             <li class="list-group-item">
                 <h5 class="mb-1">{{ task_name }}</h5>
+                <p class="mb-1"><strong>User:</strong> {{ task_info['user'] }}</p>
                 <p class="mb-1"><strong>Time:</strong> {{ task_info['time'] }}</p>
                 <p class="mb-1"><strong>Description:</strong> {{ task_info['description'] }}</p>
             </li>

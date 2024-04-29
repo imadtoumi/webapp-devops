@@ -11,13 +11,14 @@ def index():
 
 @app.route('/add_task', methods=['POST'])
 def add_task():
+    task_user = request.form['user']
     task_name = request.form['name']
     task_time = request.form['time']
     task_description = request.form['description']
-    if task_name == "" or task_time == "" or task_description == "":
+    if task_user == "" or task_name == "" or task_time == "" or task_description == "":
         return redirect(url_for('index'))
     else:
-        tasks[task_name] = {'time': task_time, 'description': task_description}
+        tasks[task_name] = {'user':task_user, 'time': task_time, 'description': task_description}
         return redirect(url_for('index'))
 
 if __name__ == '__main__':
