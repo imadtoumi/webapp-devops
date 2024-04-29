@@ -107,6 +107,16 @@ docker run -d -p 5000:5000 flask-docker
 ![webapp](https://github.com/imadtoumi/webapp-devops/assets/41326066/8c069f15-b18c-4196-8f2f-bd3c3af2ea54)
 
 - Don't forget to initilize git repo in the directory you are working and follow the commands we did above (Git setup part)
-  
+
+# Jenkins setup
+- For jenkins i am runing it as a contianer in an other vm other then our raspberry pi.
+### Let's get jenkins image and run it as a docker container  
+
+### Configuration done for our project 
+#### Pipeline creation 
+
+#### Adding node where we deploy (Raspberry pi in our case)
+
+
 ## Contribution
 Contributions to this project are welcome! Feel free to submit issues, feature requests, or pull requests. For support or collaboration, reach out via email at \imadtoumi8@gmail.com or via discord imad5208.
