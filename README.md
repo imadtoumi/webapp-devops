@@ -181,6 +181,12 @@ Checkout: Retrieves source code from a GitHub repository. </br>
 Initialize: Sets up Docker environment. </br>
 Build Docker Image: Uses the Dockerfile in the repository to build the Docker image named "flask-docker:latest". </br>
 
+- Let's run the pipeline. </br>
+![buildpipe](https://github.com/imadtoumi/webapp-devops/assets/41326066/5684e8a7-7e6e-43c9-8f07-d0ddda91a4ba) </br>
+- If we go to status after runing the pipline we will see if it finished successfully or not. </br>
+![success](https://github.com/imadtoumi/webapp-devops/assets/41326066/0c0a8115-e545-4caf-9f16-55c01e5d1f9a) </br>
+- It was done successfully and we can see that the image is build from the github repo and added to our local machine (Node in jenkins, we will add more nodes in next section). </br>
+![fl-img](https://github.com/imadtoumi/webapp-devops/assets/41326066/c1c4e0b4-983f-4255-84f0-20725a61ec7c)
 #### Adding node where we deploy (Raspberry pi in our case)
 
 
