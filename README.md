@@ -143,10 +143,11 @@ chmod 666 /var/run/docker.sock
 </br>
 - Provide the github project link and build trigger which is 'Github hook trigger' for our case. </br>
 - Now let's provide the pipeline syntax. </br>
+
 ```python
+
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
