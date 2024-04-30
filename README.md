@@ -134,14 +134,11 @@ chmod 666 /var/run/docker.sock
 - After the steps above now we can access our jenkins from the browser by using the vm ip add or by using local host if jenkins is hosted in our machine </br>
 - Configure the account and install the recommended plugins </br>
 - After that we can now go to the plugins and install the pulgins we need for our use case </br>
-![plugins](https://github.com/imadtoumi/webapp-devops/assets/41326066/1c4d9335-1ef3-43f7-bc78-ccc04d66887e)
-</br>
-- Search for the plugins needed (Docker and git and any other plugin that needs to be used) and install them </br>
-![available plugins](https://github.com/imadtoumi/webapp-devops/assets/41326066/03f22752-b75f-42f3-a27c-52f100ad4531)
-</br>
+![plugins](https://github.com/imadtoumi/webapp-devops/assets/41326066/1c4d9335-1ef3-43f7-bc78-ccc04d66887e) </br>
+- Search for the plugins needed (Docker and git and any other plugin that needs to be used) and install them. </br>
+![available plugins](https://github.com/imadtoumi/webapp-devops/assets/41326066/03f22752-b75f-42f3-a27c-52f100ad4531) </br>
 - After you install the plugins go to tools and configure them ( https://www.youtube.com/watch?v=PKcGy9oPVXg this video can help with jenkins understanding) </br>
-- Now let's create our pipeline
-</br>
+- Now let's create our pipeline.</br>
 ![pipeline](https://github.com/imadtoumi/webapp-devops/assets/41326066/b8024f29-5116-4710-80c1-deacd06bdf8b)
 </br>
 - Provide the github project link and build trigger which is 'Github hook trigger' for our case
