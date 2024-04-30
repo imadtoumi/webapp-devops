@@ -141,7 +141,7 @@ chmod 666 /var/run/docker.sock
 - Now let's create our pipeline.</br>
 ![pipeline](https://github.com/imadtoumi/webapp-devops/assets/41326066/b8024f29-5116-4710-80c1-deacd06bdf8b)
 </br>
-- Provide the github project link and build trigger which is 'Github hook trigger' for our case.
+- Provide the github project link and build trigger which is 'Github hook trigger' for our case. </br>
 - Now let's provide the pipeline syntax. </br>
 ```python
 pipeline {
