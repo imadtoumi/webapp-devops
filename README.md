@@ -206,9 +206,62 @@ docker run --net=host -it -e NGROK_AUTHTOKEN="your_auth_token" ngrok/ngrok:lates
 ![ngrok](https://github.com/imadtoumi/webapp-devops/assets/41326066/0ff2378e-7f42-4281-b2fa-5c69fbecf946) </br>
 - Let's access our Jenkins using this link! </br>
 ![ngrok-jenk](https://github.com/imadtoumi/webapp-devops/assets/41326066/a5d39911-3aa8-494d-a72a-991465dd733f)</br>
-Yes siir it works.
+Yes siir it works. </br>
 
+- Now we can configure the webhook so it can trigger the build whenever a new push is commited
+![webhook](https://github.com/imadtoumi/webapp-devops/assets/41326066/be0e689e-7079-4585-b276-a4dca6b338b4)
 
+##### Configure the pipeling to run on the added node when we push on github
+- This is the pipeline we will use, make sure you give the label of the new added node in (agent {label 'label'})
+```python
+pipeline {
+    agent {label 'slave-1'}
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out the source code from the GitHub repository
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/imadtoumi/webapp-devops.git']]])
+            }
+        }
+        
+        stage('Initialize'){
+            steps{
+                script{
+                    def dockerHome = tool 'My-Docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                // Build Docker image using the Dockerfile in the repository
+                script {
+                    sh '''
+                        docker build -t flask-docker:latest .
+                        image_id=$(docker images -f dangling=true -q)
+                        con_id=$(docker ps -aqf "ancestor=$image_id")
+                        docker stop $con_id
+                        docker container rm $con_id
+                        docker image rm $image_id
+                        docker run -d -p 5000:5000 flask-docker
+                    '''
+                }
+            }
+        }
+
+    }
+}
+```
+###### Piepline explanation
+- Checks out code from the specified GitHub repository. </br>
+- Sets up the Docker environment. </br>
+- Builds the "flask-docker:latest" image. </br>
+- Removes dangling images and containers. </br>
+- Runs a new container on port 5000 .</br>
+###### So in the pipeline above demonstrates the initial steps towards CI by automating the build process and lays the groundwork for further CD implementation.  </br>
+- Now after we perform a new push in our github we will be abvle to see the build starts by it self in the build hisotry. </br>
 
 ## Contribution
 Contributions to this project are welcome! Feel free to submit issues, feature requests, or pull requests. For support or collaboration, reach out via email at \imadtoumi8@gmail.com or via discord imad5208.
