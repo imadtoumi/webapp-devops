@@ -189,7 +189,7 @@ Build Docker Image: Uses the Dockerfile in the repository to build the Docker im
 ![fl-img](https://github.com/imadtoumi/webapp-devops/assets/41326066/c1c4e0b4-983f-4255-84f0-20725a61ec7c)
 #### Adding node where we deploy (Raspberry pi in our case)
 
-
+#### Exposing Jenkins to internet to enable webhook in github
 
 ## Contribution
 Contributions to this project are welcome! Feel free to submit issues, feature requests, or pull requests. For support or collaboration, reach out via email at \imadtoumi8@gmail.com or via discord imad5208.
