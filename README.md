@@ -188,8 +188,28 @@ Build Docker Image: Uses the Dockerfile in the repository to build the Docker im
 - It was done successfully and we can see that the image is build from the github repo and added to our local machine (Node in jenkins, we will add more nodes in next section). </br>
 ![fl-img](https://github.com/imadtoumi/webapp-devops/assets/41326066/c1c4e0b4-983f-4255-84f0-20725a61ec7c)
 #### Adding node where we deploy (Raspberry pi in our case)
-
+- First make sure you have Java installed in the node you want to add in Jenkins, without Java connection will fail. </br> 
+. Setting up a new slave is simple if you will follow what the ui say, but for more calrity you can follow this https://www.youtube.com/watch?v=99DddJiH7lM&t=869s (that's what i watched as well). </br>
+  
 #### Exposing Jenkins to internet to enable webhook in github
+- Without exposing our Jenkins to the internet webhooks won't work, why ? Because github can not ping and connect to machine running inside your local network and it's not exposed to the internet. </br>
+- For this to be done we will use a simple tool and easy to configure it's name is " Ngrok ", since we runing everything in docker we will set it up in dockr as well. </br>
+- Go to https://ngrok.com/ , create an account and go to setup & installation and choose docker instead of windows which is selected by default. </br>
+ ```python
+docker pull ngrok/ngrok
+```
+- After pulling the image you will find the docker run command with your authtoken, as well as the port you want to forward to (in our case 8080 because we are configured jenkins on this port)
+ ```python
+docker run --net=host -it -e NGROK_AUTHTOKEN="your_auth_token" ngrok/ngrok:latest http 8080
+``
+- Now after our container is up and runing as well as our jenkins, we will find the link in the endpoints page in ngrok. </br>
+![ngrok](https://github.com/imadtoumi/webapp-devops/assets/41326066/0ff2378e-7f42-4281-b2fa-5c69fbecf946)
+</br>
+- Let's access our Jenkins using this link! </br>
+![ngrok-jenk](https://github.com/imadtoumi/webapp-devops/assets/41326066/a5d39911-3aa8-494d-a72a-991465dd733f)
+</br>
+Yes siir it works.
+
 
 
 ## Contribution
