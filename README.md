@@ -202,12 +202,10 @@ docker pull ngrok/ngrok
  ```python
 docker run --net=host -it -e NGROK_AUTHTOKEN="your_auth_token" ngrok/ngrok:latest http 8080
 ``
-- Now after our container is up and runing as well as our jenkins, we will find the link in the endpoints page in ngrok. </br>
+- Now after our container is up and runing as well as our jenkins, we will find the link in the endpoints page in ngrok.
 ![ngrok](https://github.com/imadtoumi/webapp-devops/assets/41326066/0ff2378e-7f42-4281-b2fa-5c69fbecf946)
-</br>
-- Let's access our Jenkins using this link! </br>
+- Let's access our Jenkins using this link!
 ![ngrok-jenk](https://github.com/imadtoumi/webapp-devops/assets/41326066/a5d39911-3aa8-494d-a72a-991465dd733f)
-</br>
 Yes siir it works.
 
 
