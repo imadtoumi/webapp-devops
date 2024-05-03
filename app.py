@@ -8,7 +8,7 @@ def connect():
 	conn = psycopg2.connect(database="flask", 
 		user="admin", 
 		password="admin", 
-		host="postgres", port="5432") 
+		host="my-postgres", port="5432") 
 	return conn
 
 # Connect to the database 
