@@ -1,57 +1,45 @@
-<!-- templates/index.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task Manager</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Custom styles */
-        body {
-            padding: 20px;
-        }
-        .task-form {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <center><h1 class="mt-5">Task Manager</h1></center>
-        <form class="task-form" action="{{ url_for('add_task') }}" method="post">
-            <div class="form-group">
-                <label for="user">User :</label>
-                <input type="text" class="form-control" id="user" name="user" placeholder="Enter User Name">
-            </div>
-            <div class="form-group">
-                <label for="name">Task :</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Enter task">
-            </div>
-            <div class="form-group">
-                <label for="time">Time :</label>
-                <input type="text" class="form-control" id="time" name="time" placeholder="Enter time">
-            </div>
-            <div class="form-group">
-                <label for="description">Description :</label>
-                <input type="text" class="form-control" id="description" name="description" placeholder="Enter Description">
-            </div>
-            <button type="submit" class="btn btn-primary">Add Task</button>
-        </form>
-        <ul class="list-group">
-            {% for task_name, task_info in tasks.items() %}
-            <li class="list-group-item">
-                <h5 class="mb-1">{{ task_name }}</h5>
-                <p class="mb-1"><strong>User:</strong> {{ task_info['user'] }}</p>
-                <p class="mb-1"><strong>Time:</strong> {{ task_info['time'] }}</p>
-                <p class="mb-1"><strong>Description:</strong> {{ task_info['description'] }}</p>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <!-- Bootstrap JS (Optional, for certain Bootstrap components that require JS) -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-</html>
+<html> 
+<head> 
+	<title>CRUD App</title> 
+</head> 
+<body> 
+	<h1>CRUD App</h1> 
+	<table> 
+	<thead> 
+		<tr> 
+		<th>ID</th> 
+		<th>Name</th> 
+		<th>Price</th> 
+		<th>Actions</th> 
+		</tr> 
+	</thead> 
+	<tbody> 
+		{% for row in data %} 
+		<tr> 
+		<td>{{ row[0] }}</td> 
+		<td>{{ row[1] }}</td> 
+		<td>{{ row[2] }}</td> 
+		<td> 
+			<form action="/update" method="post"> 
+			<input type="hidden" name="id" value="{{ row[0] }}"> 
+			<input type="text" name="name" value="{{ row[1] }}"> 
+			<input type="text" name="price" value="{{ row[2] }}"> 
+			<input type="submit" value="Update"> 
+			</form> 
+			<form action="/delete" method="post"> 
+			<input type="hidden" name="id" value="{{ row[0] }}"> 
+			<input type="submit" value="Delete"> 
+			</form> 
+		</td> 
+		</tr> 
+		{% endfor %} 
+	</tbody> 
+	</table> 
+	<h2>Create a new product</h2> 
+	<form action="/create" method="post"> 
+	<input type="text" name="name" placeholder="Name"> 
+	<input type="text" name="price" placeholder="Price"> 
+	<input type="submit" value="Create"> 
+	</form> 
+</body> 
+</html> 
