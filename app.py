@@ -8,7 +8,7 @@ def connect():
 	conn = psycopg2.connect(database="flask", 
 		user="admin", 
 		password="admin", 
-		host="c5a1efbe384d", port="5432") 
+		host="my-postgres", port="5432") 
 	return conn
 
 # Connect to the database 
@@ -20,12 +20,12 @@ cur = conn.cursor()
 # if you already have any table or not id doesnt matter this 
 # will create a products table for you. 
 cur.execute( 
-	'''CREATE TABLE IF NOT EXISTS products (id serial \ 
+	'''CREATE TABLE IF NOT EXISTS products (id serial  
 	PRIMARY KEY, name varchar(100), price float);''') 
 
 # Insert some data into the table 
 cur.execute( 
-	'''INSERT INTO products (name, price) VALUES \ 
+	'''INSERT INTO products (name, price) VALUES 
 	('Apple', 1.99), ('Orange', 0.99), ('Banana', 0.59);''') 
 
 # commit the changes 
@@ -68,7 +68,7 @@ def create():
 
 	# Insert the data into the table 
 	cur.execute( 
-		'''INSERT INTO products \ 
+		'''INSERT INTO products  
 		(name, price) VALUES (%s, %s)''', 
 		(name, price)) 
 
@@ -95,7 +95,7 @@ def update():
 
 	# Update the data in the table 
 	cur.execute( 
-		'''UPDATE products SET name=%s,\ 
+		'''UPDATE products SET name=%s, 
 		price=%s WHERE id=%s''', (name, price, id)) 
 
 	# commit the changes 
