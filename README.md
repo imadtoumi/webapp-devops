@@ -1,7 +1,7 @@
 # Webapp-devops
 
 ## Overview
-Welcome to the Webapp-devops project! This project aims to implement DevOps methodologies gradually, integrating various tools and practices step by step. The deployment utilizes a Raspberry Pi Model 4 as the server, running an nginx web app.
+Welcome to the Webapp-devops project! This project aims to implement DevOps methodologies gradually, integrating various tools and practices step by step. The deployment utilizes a Raspberry Pi Model 4 as the server, running a web app. Overall it's a documentation of my devops learning journey.
 
 ## Installation
 
@@ -263,5 +263,21 @@ pipeline {
 ###### So in the pipeline above demonstrates the initial steps towards CI by automating the build process and lays the groundwork for further CD implementation.  </br>
 - Now after we perform a new push in our github we will be abvle to see the build starts by it self in the build hisotry. </br>
 
+## Integrating a database (Postgres) with a flask app
+#### Conatainerazing postgres 
+- The PG docker container will be runing in our raspberry Pi. </br>
+```python
+docker pull postgres:latest
+docker network create flask-network
+docker run --name my-postgres   -e POSTGRES_USER=admin   -e POSTGRES_PASSWORD=admin   -e POSTGRES_DB=flask   -p 5432:5432   --network flask-network   -d postgres
+```
+- After you run this changes have been made to the app.py and index.html, i've used this project instead of the first one for it's easy implementation and it does all we need it to do with the PG databse: </br>
+https://www.geeksforgeeks.org/making-a-flask-app-using-a-postgresql-database/
+- When runing the flask app container make sure it is in the same network as the PG databse (network is flask-network) </br>
+![2containers](https://github.com/imadtoumi/webapp-devops/assets/41326066/d8909930-6d11-4dfc-b56c-655b553a238b) </br>
+- The application will look like this, you can perform CRUD functions to the DB. </br>
+![app](https://github.com/imadtoumi/webapp-devops/assets/41326066/0e611168-0ba5-4198-ad02-d0e4ea0548f2) </br>
+PS : if you will access the db container and connect to the databse you will see all the changes you are making so it is working correctly.
+  
 ## Contribution
 Contributions to this project are welcome! Feel free to submit issues, feature requests, or pull requests. For support or collaboration, reach out via email at \imadtoumi8@gmail.com or via discord imad5208.
