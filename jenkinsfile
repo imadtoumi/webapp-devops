@@ -1,0 +1,55 @@
+pipeline {
+    agent {label 'slave-1'}
+    tools{
+        jdk 'jdk17'
+    }
+    
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out the source code from the GitHub repository
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/imadtoumi/webapp-devops.git']]])
+            }
+        }
+        
+        stage("Sonarqube Analysis") {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Py-project \
+                    -Dsonar.projectKey=Py-project'''
+                }
+            }
+        }
+        
+        stage('Initialize'){
+            steps{
+                script{
+                    def dockerHome = tool 'My-Docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                // Build Docker image using the Dockerfile in the repository
+                script {
+                    sh '''
+                        docker build -t flask-docker:latest .
+                        image_id=$(docker images -f dangling=true -q)
+                        con_id=$(docker ps -aqf "ancestor=$image_id")
+                        docker stop $con_id
+                        docker container rm $con_id
+                        docker image rm $image_id
+                        docker run -d --network=flask-network -p 5000:5000 flask-docker
+                    '''
+                }
+            }
+        }
+
+    }
+}
