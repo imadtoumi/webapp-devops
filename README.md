@@ -212,17 +212,33 @@ Yes siir it works. </br>
 - Now we can configure the webhook so it can trigger the build whenever a new push is commited
 ![webhook](https://github.com/imadtoumi/webapp-devops/assets/41326066/be0e689e-7079-4585-b276-a4dca6b338b4)
 
-##### Configure the pipeling to run on the added node when we push on github
+##### Configure the pipeling to run on the added node when we push on github and use sonarqube to scan our code
 - This is the pipeline we will use, make sure you give the label of the new added node in (agent {label 'label'})
 ```python
 pipeline {
     agent {label 'slave-1'}
-
+    tools{
+        jdk 'jdk17'
+    }
+    
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+    
     stages {
         stage('Checkout') {
             steps {
                 // Check out the source code from the GitHub repository
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/imadtoumi/webapp-devops.git']]])
+            }
+        }
+        
+        stage("Sonarqube Analysis") {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Py-project \
+                    -Dsonar.projectKey=Py-project'''
+                }
             }
         }
         
@@ -246,7 +262,7 @@ pipeline {
                         docker stop $con_id
                         docker container rm $con_id
                         docker image rm $image_id
-                        docker run -d -p 5000:5000 flask-docker
+                        docker run -d --network=flask-network -p 5000:5000 flask-docker
                     '''
                 }
             }
@@ -257,6 +273,8 @@ pipeline {
 ```
 ###### Piepline explanation
 - Checks out code from the specified GitHub repository. </br>
+- Sets up sonarqube environment. </br>
+- Scan code source. </br>
 - Sets up the Docker environment. </br>
 - Builds the "flask-docker:latest" image. </br>
 - Removes dangling images and containers. </br>
