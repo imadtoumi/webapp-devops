@@ -232,16 +232,7 @@ pipeline {
                 checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/imadtoumi/webapp-devops.git']]])
             }
         }
-        
-        stage("Sonarqube Analysis") {
-            steps {
-                withSonarQubeEnv('sonar-server') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Py-project \
-                    -Dsonar.projectKey=Py-project'''
-                }
-            }
-        }
-        
+
         stage('Initialize'){
             steps{
                 script{
@@ -297,6 +288,80 @@ https://www.geeksforgeeks.org/making-a-flask-app-using-a-postgresql-database/
 - The application will look like this, you can perform CRUD functions to the DB. </br>
 ![app](https://github.com/imadtoumi/webapp-devops/assets/41326066/0e611168-0ba5-4198-ad02-d0e4ea0548f2) </br>
 PS : if you will access the db container and connect to the databse you will see all the changes you are making so it is working correctly.
+
+### Integrating SonarQube in our pipeline
+##### SonarQube is " code quality check " tool that makes the process of finding bugs and code smells easier, and earlier.
+- I recommend this video for understanding and setting it up with jenkins, but for my case i run it as a docker container : </br>
+```python
+docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+```
+
+- Our pipeline will look like this now :
   
+```python
+pipeline {
+    agent {label 'slave-1'}
+    tools{
+        jdk 'jdk17'
+    }
+    
+    environment {
+        SCANNER_HOME = tool 'sonar-scanner'
+    }
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                // Check out the source code from the GitHub repository
+                checkout([$class: 'GitSCM', branches: [[name: '*/main']], userRemoteConfigs: [[url: 'https://github.com/imadtoumi/webapp-devops.git']]])
+            }
+        }
+        
+        stage("Sonarqube Analysis") {
+            steps {
+                withSonarQubeEnv('sonar-server') {
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Py-project \
+                    -Dsonar.projectKey=Py-project'''
+                }
+            }
+        }
+        
+        stage('Initialize'){
+            steps{
+                script{
+                    def dockerHome = tool 'My-Docker'
+                    env.PATH = "${dockerHome}/bin:${env.PATH}"
+                }
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                // Build Docker image using the Dockerfile in the repository
+                script {
+                    sh '''
+                        docker build -t flask-docker:latest .
+                        image_id=$(docker images -f dangling=true -q)
+                        con_id=$(docker ps -aqf "ancestor=$image_id")
+                        docker stop $con_id
+                        docker container rm $con_id
+                        docker image rm $image_id
+                        docker run -d --network=flask-network -p 5000:5000 flask-docker
+                    '''
+                }
+            }
+        }
+
+    }
+}
+```
+- After running the pipeline and accessing the sonarqube we will find a project named 'Py-project' : </br>
+![pyproject](https://github.com/imadtoumi/webapp-devops/assets/41326066/f3cfa6fb-933d-4ea5-b283-4e9543236c09)
+
+-This the issue that are found in the code that was scanned and it is for you to fix. </br>
+![issues](https://github.com/imadtoumi/webapp-devops/assets/41326066/aadda8c3-6b60-46fc-b597-792c444e7922)
+
+-- Now our pipeline is doing a kind of security checking for our application which is good practice and it is mandatory in a devsecops role. 
+ 
 ## Contribution
 Contributions to this project are welcome! Feel free to submit issues, feature requests, or pull requests. For support or collaboration, reach out via email at \imadtoumi8@gmail.com or via discord imad5208.
