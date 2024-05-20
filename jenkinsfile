@@ -9,6 +9,12 @@ pipeline {
     }
     
     stages {
+        stage('clean workspace') {
+            steps {
+                cleanWs()
+            }
+        }
+        
         stage('Checkout') {
             steps {
                 // Check out the source code from the GitHub repository
@@ -45,8 +51,23 @@ pipeline {
                         docker stop $con_id
                         docker container rm $con_id
                         docker image rm $image_id
-                        docker run -d --network=flask-network -p 5000:5000 flask-docker
                     '''
+                }
+            }
+        }
+        
+        stage('Scan docker image'){
+            steps{
+                script{
+                    sh 'trivy image --no-progress --scanners vuln --severity HIGH,CRITICAL --format table -o scan.txt flask-docker'
+                }
+            }
+        }
+        
+        stage('Docker run the container'){
+            steps{
+                script{
+                    sh 'docker run -d --network=flask-network -p 5000:5000 flask-docker' 
                 }
             }
         }
