@@ -1,5 +1,5 @@
 # Webapp-devops
-![devops-diagram](https://github.com/imadtoumi/webapp-devops/assets/41326066/7819982d-6722-4262-a740-65935e87721b)
+![devops-diagram](https://github.com/imadtoumi/webapp-devops/assets/41326066/9f3e1123-5e17-4f88-8c97-718f4b9f255d)
 
 ## Overview
 Welcome to the Webapp-devops project! This project aims to implement DevOps methodologies gradually, integrating various tools and practices step by step. The deployment utilizes a Raspberry Pi Model 4 as the server, running a web app. Overall it's a documentation of my devops learning journey.
